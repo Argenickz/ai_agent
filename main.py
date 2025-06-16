@@ -14,8 +14,8 @@ def main():
     model = "gemini-2.0-flash-001"
 
     more_info = "--verbose"
-
-    user_prompt = sys.argv[1]
+    arg = sys.argv[1:]
+    user_prompt = ' '.join(arg)
     if not user_prompt:
         print("Please provide an argument in this context:")
         print('python3 main.py "<your prompt here>"')
