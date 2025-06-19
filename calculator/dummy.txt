@@ -1,1 +1,0 @@
-This is some dummy text that is to be rewritten by a function
