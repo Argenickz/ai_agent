@@ -1,4 +1,5 @@
 import os
+import subprocess
 """
 ! Run Python
 It's time to build the functionality for our Agent to run arbitrary code in Python.
@@ -15,11 +16,9 @@ But aside from that... yes, the LLM can run arbitrary code that we(or it) places
 def run_python(working_directory, file_path):
     # If the file_path is outside the working directory, raise a string with an error
     working_dir_abs_path = os.path.abspath(working_directory)
-    print(f"working directory absolute path:\n{working_dir_abs_path}\n")
 
 
     file_abs_path = os.path.abspath(os.path.join(working_directory, file_path))
-    print(f"file absolute path:\n{file_abs_path}\n")
     try:
         if not file_abs_path.startswith(working_dir_abs_path):
             return f'Error: Cannot execute "{file_path}" as it is outside the permitted working directory'
@@ -27,15 +26,27 @@ def run_python(working_directory, file_path):
             return f'Error: File "{file_path}" not found.'
         if not file_path.endswith(".py"):
             return f'Error: "{file_path}" is not a python file.'
-        # Successful logic goes here...
+        result = subprocess.run(args=['python3', file_abs_path], capture_output=True, text=True, timeout=30)    
+        stdout = f'"STDOUT:"\n{result.stdout}'
+        stderr = f'"STDERR:"\n{result.stderr}\nProcess exited with code {result.returncode}'
+        if result.returncode != 0:
+            return stderr
+        if len(result.stdout.strip()) < 1:
+            return "No output produced"
+        
+        return stdout
+
+
+
     
     except Exception as e:
-        return f'Error proccessign file: {e}'
+        return f'Error: executing Python file: {e}'
+    
 
 
 
 def main():
-    result = run_python("calculator", "main.py")
+    result = run_python("calculator", "none.py")
     print(result)
 
 if __name__ == "__main__":
