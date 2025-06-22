@@ -13,7 +13,7 @@ But aside from that... yes, the LLM can run arbitrary code that we(or it) places
 ! Assignment
 """
 # Create a function in the functions directory 'run_python_file(working directory, file_path)
-def run_python(working_directory, file_path):
+def run_python_file(working_directory, file_path):
     # If the file_path is outside the working directory, raise a string with an error
     working_dir_abs_path = os.path.abspath(working_directory)
 
@@ -46,7 +46,7 @@ def run_python(working_directory, file_path):
 
 
 def main():
-    result = run_python("calculator", "none.py")
+    result = run_python_file("calculator", "none.py")
     print(result)
 
 if __name__ == "__main__":
