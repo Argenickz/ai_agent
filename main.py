@@ -45,6 +45,5 @@ def main():
 if __name__ == "__main__":
     main()
 
-# Todo/ Started over with a new branch 'anew' to create the project from 'almost zero' cause I was all over the place, I need to create directories for every new function, also I need to group functions that go together.s
+# Todo/ Started over with a new branch 'anew' to create the project from 'almost zero' cause I was all over the place, I need to create directories for every new function, also I need to group functions that go together.
 
-# todo Start Calculator Tomorrow.
