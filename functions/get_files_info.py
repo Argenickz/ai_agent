@@ -34,7 +34,6 @@ def get_files_info(working_directory, directory=None):
     return f'Error: Must provide a directory, directory cannot be {None}'
         
 
-# Todo Start Get File Content tomorrow...
 
 
 
