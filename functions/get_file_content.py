@@ -1,4 +1,5 @@
 import os
+from google.genai import types
 MAX_CHARACTERS = 10000
 
 def get_file_content(working_directory, file_path):
@@ -17,12 +18,19 @@ def get_file_content(working_directory, file_path):
         return f'Error: Cannot read "{file_path}" as it is outside the permitted working direcrtory'
     except Exception as e:
         return f'Error: {e}'
-
-def main():
-    result = get_file_content("calculator", "main.py")
-    print(result)
-
-if __name__=="__main__":
-    main()
+    
 
 
+schema_get_file_content = types.FunctionDeclaration(
+    name="get_file_content",
+    description="Show the first 10000 characters of a file in the specified directory, constrained to the working directory",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "file_path": types.Schema(
+                type=types.Type.STRING,
+                description="The directory to show the files from, relative to the working directory."
+            )
+        }
+    )
+)

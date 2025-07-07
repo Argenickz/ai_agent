@@ -1,8 +1,9 @@
 import os
+from google.genai import types
 
-def write_file(working_directoroy, file_path, content):
-    working_dir_abs_path = os.path.abspath(working_directoroy)
-    file_absolute_path = os.path.abspath(os.path.join(working_directoroy, file_path))
+def write_file(working_directory, file_path, content):
+    working_dir_abs_path = os.path.abspath(working_directory)
+    file_absolute_path = os.path.abspath(os.path.join(working_directory, file_path))
 
     try:
         if file_absolute_path.startswith(working_dir_abs_path):
@@ -19,10 +20,20 @@ def write_file(working_directoroy, file_path, content):
     except Exception as e:
         return f'Error: {e}'
 
-def main():
-    print(write_file("calculator", "pkg/morelorem.txt", "replace txt"))
-
-
-if __name__=="__main__":
-    main()
+schema_write_file = types.FunctionDeclaration(
+    name="write_file",
+    description="Write content into a file in the given directory, constrained to the working directory",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "file_path": types.Schema(
+                type=types.Type.STRING,
+                description="The directory where the file to write to is, relative to the working directory."),
+            "content": types.Schema(
+                type=types.Type.STRING,
+                description=" The content to be written into the file."
+            )    
+        }
+    )
+)
 

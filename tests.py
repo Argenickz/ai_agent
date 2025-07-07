@@ -2,16 +2,20 @@ import unittest
 from functions.get_files_info import get_files_info
 from functions.get_file_content import get_file_content
 from functions.write_file import write_file
+from functions.run_python_file import run_python_file
 
 class TestCases(unittest.TestCase):
     def test_one(self):
-        print(write_file("calculator", "lorem.txt", "wait, this isn't lorem ipsum"))
+        print(run_python_file("calculator", "main.py"))
 
     def test_two(self):
-        print(write_file("calculator", "pkg/morelorem.txt", "lorem ipsum dolor sit amet"))
+        print(run_python_file("calculator", "tests.py"))
 
     def test_three(self):
-        print(write_file("calculator", "/tmp/temp.txt", "this shouldn't be allowed"))
+        print(run_python_file("calculator", "../main.py"))
+
+    def test_four(self):
+        print(run_python_file("calculator", "nonexistent.py"))
 
 
     # def test_one(self):
